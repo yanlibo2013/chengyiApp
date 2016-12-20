@@ -54,11 +54,9 @@ const serve = (path, cache) => express.static(resolve(path), {
 })
 
 app.use(compression({ threshold: 0 }))
-app.use(favicon('./public/logo-48.png'))
 app.use('/service-worker.js', serve('./dist/service-worker.js'))
 app.use('/manifest.json', serve('./manifest.json'))
 app.use('/dist', serve('./dist'))
-app.use('/public', serve('./public'))
 
 app.get('*', (req, res) => {
   if (!renderer) {
@@ -71,24 +69,11 @@ app.get('*', (req, res) => {
   const renderStream = renderer.renderToStream(context)
 
   renderStream.once('data', () => {
-    console.log("=============================================");
-    //console.log(context.initialState);
-    res.write('<!DOCTYPE html>'+
-       '<html lang="en">'+
-        '<head>'+
-        '<meta charset="utf-8">'+
-        '<title>${Date.now() - s}</title>'+
-        '<meta name="mobile-web-app-capable" content="yes">'+
-        '<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">'+
-        '<link rel="shortcut icon" sizes="48x48" href="/logo.png">'+
-        '<meta name="theme-color" content="#f60">'+
-        '<link rel="manifest" href="/manifest.json">'+
-        '</head>'+
-        '<body>')
+    res.write(indexHTML.head);
+    console.log("//////////////////////////////head////////////////////////////");
   })
 
   renderStream.on('data', chunk => {
-    console.log("/////////////////////data///////////////////");
     res.write(chunk)
   })
 
@@ -117,7 +102,7 @@ app.get('*', (req, res) => {
   })
 })
 
-const port = process.env.PORT || 8080
+const port = process.env.PORT || 8000
 app.listen(port, () => {
   console.log(`server started at localhost:${port}`)
 })

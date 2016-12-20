@@ -6,7 +6,7 @@ import routesMap from './map/'; // 路由映射
 Vue.use(VueRouter);
 
 const router = new VueRouter({
-  mode: 'hash',
+  mode: 'history',
   base: __dirname,
   routes: routesMap
 });

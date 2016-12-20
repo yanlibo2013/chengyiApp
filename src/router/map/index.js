@@ -1,11 +1,9 @@
 // 不同模块应代码分离
 import homeRoutes from './home';
-import aboutRoutes from './about';
 import { createListView } from './createView.js'
 
 const allRoutes = [
-  ...homeRoutes,
-  ...aboutRoutes
+  ...homeRoutes
 ];
 
 export default [

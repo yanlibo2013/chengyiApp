@@ -1,97 +1,104 @@
 <template>
     <div>
-	<!-- 头部-->
-    <nav id="index_nav" class="navbar navbar-fixed-top">
-        <div class="container" >
-            <ul class="nav navbar-nav" >
-                <li style="margin-left:41px;">
-                    <router-link to="/jhxt.html"><span>集合信托</span></router-link>
-                </li>
-                <li style="margin-left:41px;">
-                    <router-link to="/zgjh.html"><span>资管计划</span></router-link>
-                </li>
-                <li style="margin-left:41px;">
-                    <router-link to="/zqjj.html"><span>证券基金</span></router-link>
-                </li>
-                <li style="margin-left:41px;">
-                    <router-link to="/gqjj.html"><span>股权基金</span></router-link>
-                </li>
-                <li style="margin-left:41px;">
-                    <router-link to="/hwtz.html"><span>海外投资</span></router-link>
-                </li>
-            </ul>
-            <div class="index_login_reg">
-                <div  class="login_outer" >
-                               <span class="login_reg_common">
-                                   登录
-                               </span>
+        <vhead></vhead>
+        <div class="body">
+            <div class="index_main">
+                <div class="index_search">
+                    <div class="index_logo">
+                        <img src="../../assets/img/index_logo.png" class="logo_img" alt="诚壹财富顾问，壹财富">
+                        <span class="logo_text">诚壹财富顾问</span>
 
-                    <!-- 登录框 -->
-                    <div class="login_bg" >
-                        <!-- 登录框头部 -->
-                        <div class="login_head">
-                            <p>欢迎回来，<a href="">请登录</a></p>
-                        </div>
-
-                        <!-- 登录主体 -->
-                        <div class="login_content" style="margin-top:15px;">
-
-
-                            <el-form :model="loginIndexObj" :rules="rule" ref="loginIndexObj" label-width="">
-                                <el-form-item prop="tel">
-
-                                    <el-input type="text" placeholder="手机号"v-model="loginIndexObj.tel" auto-complete="off"class="head_pwd_input"
-                                    >
-                                        <template slot="prepend">
-                                            <img style="margin-right: 4px"src="../../assets/img/icon_phone.png" alt="诚壹财富顾问，壹财富">
-                                        </template>
-                                    </el-input>
-                                </el-form-item>
-                                <el-form-item prop="pwd">
-
-                                    <el-input type="password" placeholder="密码"v-model="loginIndexObj.pwd" auto-complete="off"class="head_pwd_input">
-                                        <template slot="prepend">
-                                            <img src="../../assets/img/icon_password.png" alt="诚壹财富顾问，壹财富">
-                                        </template>
-                                    </el-input>
-                                </el-form-item>
-
-                                <el-form-item>
-                                    <el-button type="primary"
-                                               size="mini"
-                                               class="login_btn"
-                                               v-text="loginName"
-                                               :disabled="loginDisabled"
-                                               :style="{background:loginBackGround}"
-                                               @click="loginBtn()">登 录</el-button>
-
-                                </el-form-item>
-                            </el-form>
-
-                            <span style="float:right;margin-top: -10px;margin-right: 5px">
-													<router-link :to="{name:'findPwd'}" >
-														忘记密码?
-													</router-link>
-												</span>
-                            <span class="clearfix"></span>
+                    </div>
+                    <div class="index_search_input">
+                        <div class="index_search_input_bg">
+                            <img src="../../assets/img/search.png" alt="诚壹财富顾问，壹财富">
+                            <input type="text" placeholder="搜索您想要的产品" id="index_query"
+                                   @click.stop="showList(true)"
+                                   @keypress.enter=""/>
+                            <button @click="search()">搜索</button>
+                            <div class="select-group" v-show="isShow">
+                                <ul id="selectModel" class="selectModel">
+                                    <li class="item-hot">热门推荐</li>
+                                    <li @hover="searchFocus()" class="item" value="1" v-for="el in searchList">
+                                        <div v-html="el.sug" @click="goDetail(el.platform, el.productId)"></div>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                    <!-- 登录框END -->
                 </div>
+            </div>
+            <div class="container">
+
+                <div class="row index_img">
+                    <div class="index_mark"><img src="../../assets/img/index_mark.png" alt=""/></div>
+
+                    <div class="col-md-3 item" v-for="el in list">
+
+                        <a :href='"/detail/" + el.productId + ".html"' target="_blank">
+                            <div class="img_item">
+                                <img src="../../assets/img/index_banner2.jpg" width="100%" alt=""/>
+                            </div>
+                            <div class="img_bg"></div>
+                        </a>
+                    </div>
+
+                </div>
+                <div class="row index_img">
+                    <div class="col-md-12 item_bottom">
+                        <div class="img_item">
+                            <img src="../../assets/img/index_banner_top.jpg" width="100%" alt=""/>
+                        </div>
+                        <div class="img_bg_bootom"></div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </nav>
-	</div>
+
+        <vfoot></vfoot>
+    </div>
 </template>
 
 <script>
+    import {mapGetters, mapActions} from 'vuex';
+    import vhead from '../common/head/index.vue';
+    import vfoot from '../common/foot/index.vue';
+    import store from '../../store/index'
 
-	export default {
-		mounted() {
-		},
-		methods: {
-		}
-	}
+    export default {
+        components: {
+            vhead,
+            vfoot
+        },
+        computed: mapGetters({
+            list: 'homeList',
+            searchList: "searchList",
+            isShow: "isShow"
+        }),
+        created () {
+            this.$store.dispatch("getSearchList", {
+                'categoryId': "",
+                'query': ""
+            });
+        },
+        methods: mapActions([
+            'showList'
+        ]),
+        mounted () {
+            if (window.attachEvent) {
+                document.getElementsByTagName("body")[0].attachEvent('click', function () {
+                    store.dispatch("hideList",false);
+                });
+            }
+            else {
+                document.getElementsByTagName("body")[0].addEventListener('click', function () {
+                    store.dispatch("hideList",false);
+                },false);
+            }
+
+        },
+    }
 </script>
 <style lang="stylus">
-	@import './index.css';
+    @import './index.css';
 </style>

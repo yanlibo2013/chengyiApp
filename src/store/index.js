@@ -5,6 +5,7 @@ import * as getters from './getters'
 import createLogger from '../plugins/logger'
 
 import  home from "./modules/home";
+import  head from "./modules/head"
 
 Vue.use(Vuex);
 
@@ -14,7 +15,8 @@ export default new Vuex.Store({
   actions,
   getters,
   modules: {
-    home
+    home,
+    head
 
   },
   /*strict: debug,*/

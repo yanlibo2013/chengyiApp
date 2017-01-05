@@ -6433,7 +6433,7 @@
 }
 /*王鑫所加-诚壹特有属性*/
 .router-link-active{
-    color: #f6762b !important
+    /*color: #f6762b !important*/
 }
 .el-input.cy_input .el-input__inner {
     height:50px;

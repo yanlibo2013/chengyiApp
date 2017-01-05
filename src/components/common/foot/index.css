@@ -266,43 +266,6 @@
 .mynav .active {
     color: #f6762b !important;
 }
-/* 下面是LOGIN的LESS*/
-#head_login {
-    margin-top: 33px;
-    right: 14em;
-}
-#head_login .head_loginReg {
-    line-height: 15px;
-    padding-top: 15px;
-    font-size: 1.2em;
-    color: #fff;
-    margin-top: 5px;
-}
-#head_login .head_loginReg .login_outer {
-    display: inline-block;
-    height: 35px;
-}
-#head_login .head_loginReg .login_outer_btn {
-    height: 35px;
-    margin-left: 20px;
-}
-#head_login .head_loginReg .login_outer:hover .login_bg {
-    display: block;
-    -webkit-animation: fadeInDown 1s ease both;
-    -moz-animation: fadeInDown 1s ease both;
-    -ms-animation: fadeInDown 1s ease both;
-    -o-animation: fadeInDown 1s ease both;
-    animation: fadeInDown 1s ease both;
-}
-#head_login .head_loginReg .reg {
-    border: 1px solid #bebebe;
-    color: #fff;
-    background-color: #bebebe;
-}
-.head_pwd_input {
-    width: 270px;
-    margin: 0 5px;
-}
 /* 下面是页尾的Less*/
 .footer {
     width: 100%;

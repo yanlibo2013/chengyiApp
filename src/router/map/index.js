@@ -10,7 +10,8 @@ export default [
   // index
   {
     path: '/',
-    component:createListView(require('../../components/home/index.vue'),"home"),
+    //component:createListView(require('../../components/home/index.vue'),"home"),
+    component:require('../../components/home/index.vue'),
     children: [
     ]
   },

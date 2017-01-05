@@ -6,6 +6,9 @@ import router from './router'
 import { sync } from 'vuex-router-sync'
 
 
+
+
+
 sync(store, router)
 
 const app = new Vue({
@@ -15,3 +18,5 @@ const app = new Vue({
 })
 
 export { app, router, store }
+
+

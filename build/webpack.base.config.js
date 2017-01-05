@@ -59,7 +59,9 @@ module.exports = {
       {
         test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
         loader: 'file-loader'
-      }
+      },
+      //{ test: /\.less$/, loader: "style!css!less" }
+      {test: /\.less$/, loader: "style!css!less"}
     ]
   }
 }

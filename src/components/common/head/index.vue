@@ -1,109 +1,55 @@
 <template>
-
-    <div id="header">
-        <nav id="index_nav" class="navbar navbar-fixed-top">
-                <div class="container" >
-                    <ul class="nav navbar-nav" >
-                        <li style="margin-left:41px;">
-                            <router-link to="/jhxt.html"><span>集合信托</span></router-link>
-                        </li>
-                        <li style="margin-left:41px;">
-                            <router-link to="/zgjh.html"><span>资管计划</span></router-link>
-                        </li>
-                        <li style="margin-left:41px;">
-                            <router-link to="/zqjj.html"><span>证券基金</span></router-link>
-                        </li>
-                        <li style="margin-left:41px;">
-                            <router-link to="/gqjj.html"><span>股权基金</span></router-link>
-                        </li>
-                        <li style="margin-left:41px;">
-                            <router-link to="/hwtz.html"><span>海外投资</span></router-link>
-                        </li>
-
-                    </ul>
-                    <div id="head_login">
-                        <div class="head_loginReg">
-                            <div class="login_outer">
-
-                                <el-button class="login_outer_btn" type="primary">登 录</el-button>
-                                <!-- 登录框 -->
-                                <div class="login_bg">
-                                    <!-- 登录框头部 -->
-                                    <div class="login_head">
-                                        <div class="head_title">欢迎回来，
-                                            <a href="javascript:void(0)">请登录</a>
-                                        </div>
-                                    </div>
-
-                                    <!-- 登录主体 -->
-                                    <div class="login_content" style="margin-top:15px;">
-
-                                        <el-form  label-width="">
-                                            <el-form-item prop="tel">
-
-                                                <el-input type="text" placeholder="手机号"
-                                                          auto-complete="off"class="head_pwd_input"
-                                                >
-                                                    <template slot="prepend">
-                                                        <img style="margin-right: 4px"src="../../../assets/img/icon_phone.png" alt="诚壹财富顾问，壹财富">
-                                                    </template>
-                                                </el-input>
-                                            </el-form-item>
-                                            <el-form-item prop="pwd">
-
-                                                <el-input type="password" placeholder="密码"
-                                                          auto-complete="off"class="head_pwd_input">
-                                                    <template slot="prepend">
-                                                        <img src="../../../assets/img/icon_password.png" alt="诚壹财富顾问，壹财富">
-                                                    </template>
-                                                </el-input>
-                                            </el-form-item>
-
-                                            <el-form-item>
-                                                <el-button type="primary"
-                                                           class="login_btn"
-                                                           @click="headLogin()">登 录</el-button>
-
-                                            </el-form-item>
-                                        </el-form>
-
-												<span style="float:right;margin-top: -10px;margin-right: 5px">
-													<router-link to="/hwtz.html" >
-														忘记密码?
-													</router-link>
-												</span>
-                                        <span class="clearfix"></span>
-                                    </div>
-                                </div>
-                                <!-- 登录框END -->
-                            </div>
-                            <router-link to="/hwtz.html">
-                                <el-button class="login_outer_btn reg" type="primary">注 册</el-button>
-
-                            </router-link>
-                        </div>
-                        <div class="head_loginReg">
-
-                            <div style="display: inline-block;margin-left: 10px">
-                                <router-link to="/hwtz.html">
-                                    <span  style="color: #f6762b"></span>
-                                </router-link>
-
-                            </div>
-                            <el-button class="login_outer_btn reg" type="primary" @click="goBack()">退出</el-button>
-
-                        </div>
-                    </div>
+    <div class="head-container">
+        <div class="head-content">
+            <div class="head-left">
+                <img  src="../../../assets/img/index_logo.png" class="logo_img" alt="诚壹财富顾问，壹财富" />
+                <div class="title">
+                    <div>诚壹理财顾问</div>
+                    <div>重新定义理财师</div>
                 </div>
-        </nav>
+            </div>
+            <div class="head-center">
+                <ul class="">
+                    <li>
+                        <router-link to="/index.html">首页</router-link>
+                    </li>
+
+                    <li v-for="el in navList">
+                        <router-link :to="el.path">
+                            <span  v-text="el.categoryName"></span>
+                        </router-link>
+                    </li>
+
+                </ul>
+                <div class="head-search-input">
+                    <img src="../../../assets/img/search.png" alt="诚壹财富顾问，壹财富">
+                    <input type="text" placeholder="搜索您想要的产品"/>
+                </div>
+            </div>
+            <div class="head-right">
+                <router-link to="/index.html"  class="right-login">
+                    登录
+                </router-link>
+                <router-link to="/index.html"  class="right-reg">
+                    注册
+                </router-link>
+            </div>
+        </div>
     </div>
 </template>
 <style lang="stylus">
-    @import './index.css';
+    @import './index.less';
 </style>
 
 <script>
+    import {mapGetters, mapActions} from 'vuex';
+    /*import { Message } from 'element-ui'*/
     export default {
+         computed: mapGetters({
+         navList: 'navList'
+         }),
+        methods: {
+        }
 
     }
 
